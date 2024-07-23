@@ -246,7 +246,7 @@ class SimpleS4Wrapper(nn.Module):
                         initializer=initializer, weight_norm=weight_norm)
         self.out = nn.Identity() if linear else nl
 
-    def forward(self, u, *w, state=None, horizon=None):
+    def forward(self, u, *args, state=None, horizon=None, **kwargs):
         #  u: (B H L) if self.transposed else (B L H)
         if not self.transposed: u = u.transpose(-1, -2)
         # We only pass BHL, and it is as if transposed is True.
