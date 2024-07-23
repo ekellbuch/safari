@@ -362,9 +362,9 @@ class SequenceLightningModule(pl.LightningModule):
         # Reset training torchmetrics
         self.task._reset_torchmetrics("train")
 
-    def training_epoch_end(self, outputs):
+    def on_train_epoch_end(self):
         # Log training torchmetrics
-        super().training_epoch_end(outputs)
+        super().on_train_epoch_end()
         # self.log_dict(
         #     {f"train/{k}": v for k, v in self.task.get_torchmetrics("train").items()},
         #     on_step=False,
@@ -379,9 +379,9 @@ class SequenceLightningModule(pl.LightningModule):
         for name in self.val_loader_names:
             self.task._reset_torchmetrics(name)
 
-    def validation_epoch_end(self, outputs):
+    def on_validation_epoch_end(self):
         # Log all validation torchmetrics
-        super().validation_epoch_end(outputs)
+        super().on_validation_epoch_end()
         # for name in self.val_loader_names:
         #     self.log_dict(
         #         {f"{name}/{k}": v for k, v in self.task.get_torchmetrics(name).items()},
@@ -397,9 +397,8 @@ class SequenceLightningModule(pl.LightningModule):
         for name in self.test_loader_names:
             self.task._reset_torchmetrics(name)
 
-    def test_epoch_end(self, outputs):
-        # Log all test torchmetrics
-        super().test_epoch_end(outputs)
+    def on_test_epoch_end(self):
+        super().on_test_epoch_end()
         # for name in self.test_loader_names:
         #     self.log_dict(
         #         {f"{name}/{k}": v for k, v in self.task.get_torchmetrics(name).items()},
