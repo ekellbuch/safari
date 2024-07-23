@@ -1,7 +1,7 @@
 _target_: pytorch_lightning.Trainer
 
 devices: 1
-accelerator: gpu
+accelerator: auto
 accumulate_grad_batches: 1 # Gradient accumulation every n batches
 max_epochs: 200
                            # accelerator: ddp # Automatically set if gpus > 1
